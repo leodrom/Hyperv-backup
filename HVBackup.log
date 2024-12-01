@@ -1,8 +1,0 @@
-
-
-2024-11-27 00:00:07 [INFO] - ===== Starting backup process =====
-2024-11-27 00:00:08 [INFO] - Created session backup directory: C:\VM\Backups\202411270000
-2024-11-27 00:00:17 [INFO] - Successfully backed up VM: LEM-HomeAssistant
-2024-11-27 00:01:56 [INFO] - Successfully backed up VM: LEM-SKD
-2024-11-27 00:09:51 [INFO] - Successfully backed up VM: LEM-Video
-2024-11-27 00:09:53 [INFO] - ===== Backup completed for all Hyper-V virtual machines =====
