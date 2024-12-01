@@ -1,11 +1,11 @@
 
 ########## CONFIGURATION BLOCK ##########
 # Define the backup directory
-$backupDirectory = "C:\VM\Backups"
+$backupDirectory = "C:\VM\Hyperv-backup"
 # Define the log file path
-$logFilePath = "C:\VM\Backups\HVBackup.log"
-# Define the list of VM names to exclude from the backup
-$excludedVMs = @("LEM-SKD", "LEM-Video")
+$logFilePath = "C:\VM\Hyperv-backup\HVBackup.log"
+# Define the list of VM names to include in the backup
+$includedVMs = @("LEM-HomeAssistant")
 # Define the number of days to keep backup files
 # 0 - Keep backups indefinitely
 # n - Keep backups for n days 
@@ -64,8 +64,27 @@ try {
     exit 1
 }
 
-# Filter out the excluded VMs from the list of VMs (case insensitive)
-$vms = $vms | Where-Object { $excludedVMs -notcontains $_.Name -and $excludedVMs -notcontains $_.Name.ToLower() }
+# Initialize the error names list
+$errnames = @()
+# Initialize the valid names list
+$validnames = @()
+
+# Check each name in the includedVMs list
+foreach ($includedVM in $includedVMs) {
+    if (-not ($vms.Name -contains $includedVM)) {
+        $errnames += $includedVM
+    }else{
+        $validnames += $includedVM
+    }
+}
+
+# Log the names of the machines that were not found
+if ($errnames.Count -gt 0) {
+    Write-Log "The following VMs were not found: $($errnames -join ', ')" "WARNING"
+}
+
+# Update the list of VMs to include only the valid names
+$vms = $vms | Where-Object { $validnames -contains $_.Name }
 
 # Create a timestamped folder for this backup session
 $timestamp = Get-Date -Format "yyyyMMddHHmm"
