@@ -1,7 +1,7 @@
 
 ########## CONFIGURATION BLOCK ##########
 # Define the backup directory
-$backupDirectory = "C:\VM\Hyperv-backup"
+$backupDirectory = "C:\VM\Hyperv-backup\VM Bacups"
 # Define the log file path
 $logFilePath = "C:\VM\Hyperv-backup\HVBackup.log"
 # Define the list of VM names to include in the backup
