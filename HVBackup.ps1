@@ -3,7 +3,7 @@
 # Define the backup directory
 $backupDirectory = "C:\VM\Hyperv-backup\VM Backups"
 # Define the log file path
-$logFilePath = "C:\VM\Hyperv-backup\HVBackup.log"
+$logFilePath = "C:\VM\Hyperv-backup\VM Backups\HVBackup.log"
 # Define the list of VM names to include in the backup
 $includedVMs = @("LEM-HomeAssistant")
 # Define the number of days to keep backup files
