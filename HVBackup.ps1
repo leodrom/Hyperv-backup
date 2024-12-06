@@ -1,11 +1,10 @@
-
 ########## CONFIGURATION BLOCK ##########
 # Define the backup directory
-$backupDirectory = "C:\VM\Hyperv-backup\VM Backups"
+$backupDirectory = "D:\VM Backups"
 # Define the log file path
 $logFilePath = "C:\VM\Hyperv-backup\VM Backups\HVBackup.log"
 # Define the list of VM names to include in the backup
-$includedVMs = @("LEM-HomeAssistant")
+$includedVMs = @("LEM-HomeAssistant", "LEM-Video")
 # Define the number of days to keep backup files
 # 0 - Keep backups indefinitely
 # n - Keep backups for n days 
