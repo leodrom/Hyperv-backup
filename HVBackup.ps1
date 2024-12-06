@@ -2,7 +2,7 @@
 # Define the backup directory
 $backupDirectory = "D:\VM Backups"
 # Define the log file path
-$logFilePath = "C:\VM\Hyperv-backup\VM Backups\HVBackup.log"
+$logFilePath = "C:\VM\Hyperv-backup\HVBackup.log"
 # Define the list of VM names to include in the backup
 $includedVMs = @("LEM-HomeAssistant", "LEM-Video")
 # Define the number of days to keep backup files
@@ -10,6 +10,9 @@ $includedVMs = @("LEM-HomeAssistant", "LEM-Video")
 # n - Keep backups for n days 
 $backupRetentionDays = 5
 ########## END CONFIGURATION BLOCK ##########
+
+# Run the script with administrative privileges in the Task Scheduler
+# powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\VM\Hyperv-backup\HVBackup.ps1"
 
 # Function to write log messages
 function Write-Log {
@@ -117,8 +120,13 @@ foreach ($vm in $vms) {
 
     # Export the VM
     try {
+        $startTime = Get-Date
+        Write-Log "Backing up VM: $($vm.Name)"
         Export-VM -Name $($vm.Name) -Path $vmBackupPath
-        Write-Log "Successfully backed up VM: $($vm.Name)"
+        $endTime = Get-Date
+        $duration = $endTime - $startTime
+        $formattedDuration = "{0:mm\:ss}" -f $duration
+        Write-Log "Successfully backed up VM: $($vm.Name) in $formattedDuration"
     } catch {
         Write-Log "Failed to back up VM: $($vm.Name). Error: $_" "ERROR"
     }
@@ -145,4 +153,4 @@ if ($backupRetentionDays -gt 0) {
 }
 
 # Log the completion of the backup process
-Write-Log "===== Backup completed for all Hyper-V virtual machines ====="
+Write-Log "===== Backup completed ====="
